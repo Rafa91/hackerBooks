@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "BSIBook.h"
 #import "BSIBookViewController.h"
+#import "BSILibrary.h"
 
 @interface AppDelegate ()
 
@@ -25,13 +26,13 @@
     
     //generamos un librillo askeroso
     
-    BSIBook *book1 = [[BSIBook alloc]initWithAuthor:@[@"Author1"]
-                                           imageURL:nil
-                                             pdfURL:nil
-                                               tags:@[@"tag1"]
-                                          titleBook:@"title1"];
-    BSIBookViewController *bookVC = [[BSIBookViewController alloc] initWithModel:book1];
-    self.window.rootViewController = bookVC;
+//    BSIBook *book1 = [[BSIBook alloc]initWithAuthor:@[@"Author1"]
+//                                           imageURL:nil
+//                                             pdfURL:nil
+//                                               tags:@[@"tag1"]
+//                                          titleBook:@"title1"];
+//    BSIBookViewController *bookVC = [[BSIBookViewController alloc] initWithModel:book1];
+//    self.window.rootViewController = bookVC;
     
     [self.window makeKeyAndVisible];
     return YES;
@@ -61,6 +62,20 @@
 
 -(void) trastear{
     
+    NSDictionary *aDic = @{@"authors" : @"author1",
+                           @"image_url" : @"http://www.google.es",
+                           @"pdf_url" : @"http://www.google.es",
+                           @"tags" : @"tag1",
+                           @"title" : @"title1"
+                           };
+    NSLog(@"object: %@", [aDic objectForKey:@"title"]);
+    BSIBook *aBook = [[BSIBook alloc]initWithAuthor:nil
+                                           imageURL:[NSURL URLWithString:[ aDic objectForKey:@"image_url"]]
+                                             pdfURL:[NSURL URLWithString:[ aDic objectForKey:@"pdf_url"]]
+                                               tags:nil
+                                          titleBook:[aDic objectForKey:@"title"]];
+    NSLog(@"object: %@", [aDic objectForKey:@"title"]);
+
 }
 
 @end
