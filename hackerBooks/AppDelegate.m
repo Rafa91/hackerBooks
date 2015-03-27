@@ -62,19 +62,26 @@
 
 -(void) trastear{
     
-    NSDictionary *aDic = @{@"authors" : @"author1",
-                           @"image_url" : @"http://www.google.es",
-                           @"pdf_url" : @"http://www.google.es",
-                           @"tags" : @"tag1",
-                           @"title" : @"title1"
-                           };
-    NSLog(@"object: %@", [aDic objectForKey:@"title"]);
-    BSIBook *aBook = [[BSIBook alloc]initWithAuthor:nil
-                                           imageURL:[NSURL URLWithString:[ aDic objectForKey:@"image_url"]]
-                                             pdfURL:[NSURL URLWithString:[ aDic objectForKey:@"pdf_url"]]
-                                               tags:nil
-                                          titleBook:[aDic objectForKey:@"title"]];
-    NSLog(@"object: %@", [aDic objectForKey:@"title"]);
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://keepcodigtest.blob.core.windows.net/containerblobstest/books_readable.json"]];
+    //Creo la response y el error para la conexión
+    NSURLResponse *response= [[NSURLResponse alloc]init];
+    NSError *error;
+    //Procedo a realizar la conexión
+    NSData *data = [NSURLConnection sendSynchronousRequest:request
+                                         returningResponse:&response
+                                                     error:&error];
+    if (data != nil) {
+        
+        //Creo un array con los objetos JSON
+        NSArray *JSONObjects = [NSJSONSerialization JSONObjectWithData:data
+                                                               options:kNilOptions
+                                                                 error:&error];
+        NSLog(@"jsonobjects: %@", JSONObjects);
+    }else {
+        NSLog(@"errorrr: %@", error.localizedDescription);
+    }
+    
+
 
 }
 
