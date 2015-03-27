@@ -45,12 +45,13 @@
             if (JSONObjects != nil) {
                 for (NSDictionary *dic in JSONObjects) {
                     BSIBook *aBook = [[BSIBook alloc]initWithDictionary:dic];
-                    NSLog(@"el libro es: %@", aBook);
-//                    if (!self.books) {
-//                        self.books = @[aBook];
-//                    }else{
-//                        self.books=@[self.books, aBook];
-//                    }
+                    if (!self.books) {
+                        self.books = [NSArray arrayWithObject:aBook];
+                    }else{
+                        NSMutableArray *aux = [self.books mutableCopy];
+                        [aux addObject:aBook];
+                        self.books = [NSArray arrayWithArray:aux];
+                    }
                 }
             }else{
                 NSLog(@"error al pasear JSON: %@", error.localizedDescription);

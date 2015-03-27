@@ -21,19 +21,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    [self trastear];
+    
     self.window.backgroundColor = [UIColor whiteColor];
-    
-    //generamos un librillo askeroso
-    
-//    BSIBook *book1 = [[BSIBook alloc]initWithAuthor:@[@"Author1"]
-//                                           imageURL:nil
-//                                             pdfURL:nil
-//                                               tags:@[@"tag1"]
-//                                          titleBook:@"title1"];
-//    BSIBookViewController *bookVC = [[BSIBookViewController alloc] initWithModel:book1];
-//    self.window.rootViewController = bookVC;
-    
+    BSILibrary *model = [[BSILibrary alloc]init];
+    [self trastear];
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -62,24 +53,7 @@
 
 -(void) trastear{
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://keepcodigtest.blob.core.windows.net/containerblobstest/books_readable.json"]];
-    //Creo la response y el error para la conexión
-    NSURLResponse *response= [[NSURLResponse alloc]init];
-    NSError *error;
-    //Procedo a realizar la conexión
-    NSData *data = [NSURLConnection sendSynchronousRequest:request
-                                         returningResponse:&response
-                                                     error:&error];
-    if (data != nil) {
-        
-        //Creo un array con los objetos JSON
-        NSArray *JSONObjects = [NSJSONSerialization JSONObjectWithData:data
-                                                               options:kNilOptions
-                                                                 error:&error];
-        NSLog(@"jsonobjects: %@", JSONObjects);
-    }else {
-        NSLog(@"errorrr: %@", error.localizedDescription);
-    }
+
     
 
 

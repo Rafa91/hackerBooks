@@ -79,19 +79,13 @@
     
 }
 
--(NSArray *)extractAuthorFromJSONArray: (NSArray *)JSONArray{
-    NSMutableArray *author = [NSMutableArray arrayWithCapacity:[JSONArray count]];
-    for (NSDictionary *dic in JSONArray) {
-        [author addObject:[dic objectForKey:@"author"]];
-    }
+-(NSArray *)extractAuthorFromJSONArray: (NSString *)JSONString{
+    NSArray *author = [JSONString componentsSeparatedByString:@", "];
     return author;
 }
 
--(NSArray *)extractTagFromJSONArray: (NSArray *)JSONArray{
-    NSMutableArray *tags = [NSMutableArray arrayWithCapacity:[JSONArray count]];
-    for (NSDictionary *dic in JSONArray) {
-        [tags addObject:[dic objectForKey:@"tags"]];
-    }
+-(NSArray *)extractTagFromJSONArray: (NSString *)JSONString{
+    NSArray *tags = [JSONString componentsSeparatedByString:@", "];
     return tags;
 }
 
