@@ -12,6 +12,12 @@
 		05E8455B1AC5635100C21EF5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05E8455A1AC5635100C21EF5 /* Images.xcassets */; };
 		05E8455E1AC5635100C21EF5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05E8455C1AC5635100C21EF5 /* LaunchScreen.xib */; };
 		05E8456A1AC5635100C21EF5 /* hackerBooksTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E845691AC5635100C21EF5 /* hackerBooksTests.m */; };
+		05E845761AC5639300C21EF5 /* BSIBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E845751AC5639300C21EF5 /* BSIBook.m */; };
+		05E845791AC567F100C21EF5 /* BSILibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E845781AC567F100C21EF5 /* BSILibrary.m */; };
+		05E8457D1AC56CD000C21EF5 /* BSILibraryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E8457C1AC56CD000C21EF5 /* BSILibraryTableViewController.m */; };
+		05E845841AC56D7A00C21EF5 /* BSIBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E845821AC56D7A00C21EF5 /* BSIBookViewController.m */; };
+		05E845851AC56D7A00C21EF5 /* BSIBookViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05E845831AC56D7A00C21EF5 /* BSIBookViewController.xib */; };
+		05E845871AC5727000C21EF5 /* c3po.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05E845861AC5727000C21EF5 /* c3po.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +41,16 @@
 		05E845631AC5635100C21EF5 /* hackerBooksTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hackerBooksTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		05E845681AC5635100C21EF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		05E845691AC5635100C21EF5 /* hackerBooksTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = hackerBooksTests.m; sourceTree = "<group>"; };
+		05E845741AC5639300C21EF5 /* BSIBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSIBook.h; sourceTree = "<group>"; };
+		05E845751AC5639300C21EF5 /* BSIBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSIBook.m; sourceTree = "<group>"; };
+		05E845771AC567F100C21EF5 /* BSILibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSILibrary.h; sourceTree = "<group>"; };
+		05E845781AC567F100C21EF5 /* BSILibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSILibrary.m; sourceTree = "<group>"; };
+		05E8457B1AC56CD000C21EF5 /* BSILibraryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSILibraryTableViewController.h; sourceTree = "<group>"; };
+		05E8457C1AC56CD000C21EF5 /* BSILibraryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSILibraryTableViewController.m; sourceTree = "<group>"; };
+		05E845811AC56D7A00C21EF5 /* BSIBookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSIBookViewController.h; sourceTree = "<group>"; };
+		05E845821AC56D7A00C21EF5 /* BSIBookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSIBookViewController.m; sourceTree = "<group>"; };
+		05E845831AC56D7A00C21EF5 /* BSIBookViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSIBookViewController.xib; sourceTree = "<group>"; };
+		05E845861AC5727000C21EF5 /* c3po.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = c3po.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +92,9 @@
 		05E845521AC5635100C21EF5 /* hackerBooks */ = {
 			isa = PBXGroup;
 			children = (
+				05E845861AC5727000C21EF5 /* c3po.jpg */,
+				05E8457A1AC56C4D00C21EF5 /* Controllers */,
+				05E845731AC5637000C21EF5 /* Models */,
 				05E845571AC5635100C21EF5 /* AppDelegate.h */,
 				05E845581AC5635100C21EF5 /* AppDelegate.m */,
 				05E8455A1AC5635100C21EF5 /* Images.xcassets */,
@@ -109,6 +128,29 @@
 				05E845681AC5635100C21EF5 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		05E845731AC5637000C21EF5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				05E845741AC5639300C21EF5 /* BSIBook.h */,
+				05E845751AC5639300C21EF5 /* BSIBook.m */,
+				05E845771AC567F100C21EF5 /* BSILibrary.h */,
+				05E845781AC567F100C21EF5 /* BSILibrary.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		05E8457A1AC56C4D00C21EF5 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				05E8457B1AC56CD000C21EF5 /* BSILibraryTableViewController.h */,
+				05E8457C1AC56CD000C21EF5 /* BSILibraryTableViewController.m */,
+				05E845811AC56D7A00C21EF5 /* BSIBookViewController.h */,
+				05E845821AC56D7A00C21EF5 /* BSIBookViewController.m */,
+				05E845831AC56D7A00C21EF5 /* BSIBookViewController.xib */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -191,8 +233,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05E845871AC5727000C21EF5 /* c3po.jpg in Resources */,
 				05E8455E1AC5635100C21EF5 /* LaunchScreen.xib in Resources */,
 				05E8455B1AC5635100C21EF5 /* Images.xcassets in Resources */,
+				05E845851AC56D7A00C21EF5 /* BSIBookViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,7 +254,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05E845841AC56D7A00C21EF5 /* BSIBookViewController.m in Sources */,
+				05E8457D1AC56CD000C21EF5 /* BSILibraryTableViewController.m in Sources */,
 				05E845591AC5635100C21EF5 /* AppDelegate.m in Sources */,
+				05E845761AC5639300C21EF5 /* BSIBook.m in Sources */,
+				05E845791AC567F100C21EF5 /* BSILibrary.m in Sources */,
 				05E845561AC5635100C21EF5 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

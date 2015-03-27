@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "BSIBook.h"
+#import "BSIBookViewController.h"
 
 @interface AppDelegate ()
 
@@ -18,7 +20,19 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    [self trastear];
     self.window.backgroundColor = [UIColor whiteColor];
+    
+    //generamos un librillo askeroso
+    
+    BSIBook *book1 = [[BSIBook alloc]initWithAuthor:@[@"Author1"]
+                                           imageURL:nil
+                                             pdfURL:nil
+                                               tags:@[@"tag1"]
+                                          titleBook:@"title1"];
+    BSIBookViewController *bookVC = [[BSIBookViewController alloc] initWithModel:book1];
+    self.window.rootViewController = bookVC;
+    
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -43,6 +57,10 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+-(void) trastear{
+    
 }
 
 @end
