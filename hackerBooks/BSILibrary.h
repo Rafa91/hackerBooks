@@ -14,6 +14,8 @@
 
 @property (readonly, nonatomic) NSUInteger bookCount;
 
+@property (strong,nonatomic) NSArray *books;
+
 -(BSIBook *) bookAtIndex:(NSUInteger) index;
 
 @end

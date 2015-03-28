@@ -10,6 +10,7 @@
 #import "BSIBook.h"
 #import "BSIBookViewController.h"
 #import "BSILibrary.h"
+#import "BSILibraryTableViewController.h"
 
 @interface AppDelegate ()
 
@@ -24,7 +25,12 @@
     
     self.window.backgroundColor = [UIColor whiteColor];
     BSILibrary *model = [[BSILibrary alloc]init];
-    [self trastear];
+    NSLog(@"%lu", (unsigned long)[model.books count]);
+    BSILibraryTableViewController *lVC = [[BSILibraryTableViewController alloc] initWithModel:model
+                                                                                        style:UITableViewStyleGrouped];
+    //BSIBookViewController *bVC = [[BSIBookViewController alloc]initWithModel:[model.books objectAtIndex:0]];
+    UINavigationController *navVC = [[UINavigationController alloc]initWithRootViewController:lVC];
+    self.window.rootViewController = navVC;
     [self.window makeKeyAndVisible];
     return YES;
 }

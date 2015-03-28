@@ -34,7 +34,6 @@
     [self updateView];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
-#warning descargar la imagen del url y meterla en la propiedad
     
 }
 
@@ -55,6 +54,7 @@
 -(void) updateView{
     
     self.title = [self.model titleBook];
+    self.labelTitle.text = [self.model titleBook];
     self.labelTags.text = [self.model tagDescription];
     self.labelAuthor.text = [self.model authorDescription];
     

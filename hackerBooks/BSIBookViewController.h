@@ -13,6 +13,7 @@
 
 @property (strong, nonatomic) BSIBook *model;
 @property (weak, nonatomic) IBOutlet UILabel *labelTags;
+@property (weak, nonatomic) IBOutlet UILabel *labelTitle;
 @property (weak, nonatomic) IBOutlet UIImageView *frontPage;
 @property (weak, nonatomic) IBOutlet UILabel *labelAuthor;
 

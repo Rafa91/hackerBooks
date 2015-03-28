@@ -11,7 +11,6 @@
 
 @interface BSILibrary ()
 
-@property (strong,nonatomic) NSArray *books;
 
 @end
 

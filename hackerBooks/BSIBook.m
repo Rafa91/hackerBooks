@@ -23,10 +23,12 @@
 
 
 -(id) initWithAuthor: (NSArray *) author
+           frontPage: (UIImage *) frontPage
             imageURL: (NSURL *) anImageURL
               pdfURL: (NSURL *) aPdfURL
                 tags: (NSArray *) tags
-           titleBook: (NSString *) aTitleBook{
+           titleBook: (NSString *) aTitleBook
+          isFavorite: (Boolean)isFavorite{
     
     if (self = [super init]) {
         _author = author;
@@ -34,6 +36,8 @@
         _pdfURL = aPdfURL;
         _tags = tags;
         _titleBook = aTitleBook;
+        _frontPage = frontPage;
+        _isFavorite = isFavorite;
     }
     
     return self;
@@ -42,15 +46,19 @@
 
 -(id) initWithDictionary: (NSDictionary *)aDic{
     
-    return [self initWithAuthor:[self extractAuthorFromJSONArray:[aDic objectForKey:@"authors"]]
-                       imageURL:[NSURL URLWithString:[aDic objectForKey:@"image_url"]]
-                         pdfURL:[NSURL URLWithString:[aDic objectForKey:@"pdf_url"]]
-                           tags:[self extractTagFromJSONArray:[aDic objectForKey:@"tags"]]
-                      titleBook:[aDic objectForKey:@"title"]];
+    return [self initWithAuthor: [self extractAuthorFromJSONArray:[aDic objectForKey:@"authors"]]
+                      frontPage: [self imageOfURL:[NSURL URLWithString:[aDic objectForKey:@"image_url"]]]
+                       imageURL: [NSURL URLWithString:[aDic objectForKey:@"image_url"]]
+                         pdfURL: [NSURL URLWithString:[aDic objectForKey:@"pdf_url"]]
+                           tags: [self extractTagFromJSONArray:[aDic objectForKey:@"tags"]]
+                      titleBook: [aDic objectForKey:@"title"]
+                     isFavorite: NO];
+
     
 }
 
 #pragma mark - Utils
+
 -(NSString *)tagDescription{
     
     NSString *aux=@"";
@@ -87,6 +95,21 @@
 -(NSArray *)extractTagFromJSONArray: (NSString *)JSONString{
     NSArray *tags = [JSONString componentsSeparatedByString:@", "];
     return tags;
+}
+
+-(UIImage *) imageOfURL:(NSURL *) aURL{
+    
+    NSError *error;
+    UIImage *aImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:aURL
+                                                                   options:NSDataReadingMappedIfSafe
+                                                                     error:&error]];
+    if (aImage) {
+        return aImage;
+    }else{
+        NSLog(@"error en la descarga de imagen: %@", error.localizedDescription);
+        return nil;
+    }
+    
 }
 
 @end

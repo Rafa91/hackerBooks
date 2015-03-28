@@ -17,13 +17,16 @@
 @property (strong, nonatomic) NSURL *pdfURL;
 @property (strong, nonatomic) NSArray *tags;
 @property (strong, nonatomic) NSString *titleBook;
+@property (nonatomic) Boolean *isFavorite;
 
 //tendremos que quitarlo
 -(id) initWithAuthor: (NSArray *) author
+           frontPage: (UIImage *) frontPage
             imageURL: (NSURL *) anImageURL
               pdfURL: (NSURL *) aPdfURL
                 tags: (NSArray *) tags
-           titleBook: (NSString *) aTitleBook;
+           titleBook: (NSString *) aTitleBook
+          isFavorite: (Boolean) isFavorite;
 
 //el inicializador final
 -(id) initWithDictionary: (NSDictionary *)aDic;
