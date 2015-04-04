@@ -25,16 +25,17 @@
     
     self.window.backgroundColor = [UIColor whiteColor];
     BSILibrary *model = [[BSILibrary alloc]init];
-    BSILibraryTableViewController *lVC = [[BSILibraryTableViewController alloc] initWithModel:model
-                                                                                        style:UITableViewStylePlain];
-    BSIBookViewController *bVC = [[BSIBookViewController alloc]initWithModel:[model.books objectAtIndex:0]];
-    UINavigationController *navlVC = [[UINavigationController alloc]initWithRootViewController:lVC];
-    UINavigationController *navbVC = [[UINavigationController alloc] initWithRootViewController:bVC];
-    UISplitViewController *split = [[UISplitViewController alloc] init];
-    split.viewControllers = @[navlVC, navbVC];
-    split.delegate = bVC;
-    lVC.delegate = bVC;
-    self.window.rootViewController =split;
+    // Detectamos el tipo de pantalla
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        
+        // Tipo tableta
+        [self configureForPadWithModel:model];
+    }else{
+        // Tipo teléfono
+        [self configureForPhoneWithModel:model];
+        
+    }
+    
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -61,12 +62,29 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
--(void) trastear{
+-(void)configureForPadWithModel:(BSILibrary *)aModel{
     
-
+    BSILibraryTableViewController *lVC = [[BSILibraryTableViewController alloc] initWithModel:aModel
+                                                                                        style:UITableViewStylePlain];
+    BSIBookViewController *bVC = [[BSIBookViewController alloc]initWithModel:[aModel.books objectAtIndex:0]];
+    UINavigationController *navlVC = [[UINavigationController alloc]initWithRootViewController:lVC];
+    UINavigationController *navbVC = [[UINavigationController alloc] initWithRootViewController:bVC];
+    UISplitViewController *split = [[UISplitViewController alloc] init];
+    split.viewControllers = @[navlVC, navbVC];
+    split.delegate = bVC;
+    lVC.delegate = bVC;
+    self.window.rootViewController =split;
     
+}
 
-
+-(void)configureForPhoneWithModel:(BSILibrary *)aModel{
+    
+    BSILibraryTableViewController *lVC = [[BSILibraryTableViewController alloc] initWithModel:aModel
+                                                                                        style:UITableViewStylePlain];
+    UINavigationController *navlVC = [[UINavigationController alloc]initWithRootViewController:lVC];
+    lVC.delegate = lVC;
+    self.window.rootViewController = navlVC;
+    
 }
 
 @end

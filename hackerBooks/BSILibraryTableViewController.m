@@ -127,6 +127,15 @@
     
 }
 
+-(void)libraryTableViewController:(BSILibraryTableViewController *)libVC didSelectedBook:(BSIBook *)aBook{
+    
+    BSIBookViewController *bookVC = [[BSIBookViewController alloc] initWithModel:aBook];
+    [self.navigationController pushViewController:bookVC
+                                         animated:YES];
+    
+    
+}
+
 #pragma mark - notifications
 //BOOK_DID_CHANGE_NOTIFICATION_NAME
 -(void)notifyThatBookDidChange:(NSNotification *)notification{

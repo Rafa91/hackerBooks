@@ -19,7 +19,7 @@
 
 @end
 
-@interface BSILibraryTableViewController : UITableViewController
+@interface BSILibraryTableViewController : UITableViewController<BSILibraryTableViewControllerDelegate>
 
 @property (strong, nonatomic) BSILibrary *model;
 @property (weak, nonatomic) id<BSILibraryTableViewControllerDelegate> delegate;
