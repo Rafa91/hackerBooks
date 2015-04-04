@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05218A001ACED9D100B5DDD3 /* BSISimplePDFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 052189FE1ACED9D100B5DDD3 /* BSISimplePDFViewController.m */; };
+		05218A011ACED9D100B5DDD3 /* BSISimplePDFViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 052189FF1ACED9D100B5DDD3 /* BSISimplePDFViewController.xib */; };
 		05E845561AC5635100C21EF5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E845551AC5635100C21EF5 /* main.m */; };
 		05E845591AC5635100C21EF5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E845581AC5635100C21EF5 /* AppDelegate.m */; };
 		05E8455B1AC5635100C21EF5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05E8455A1AC5635100C21EF5 /* Images.xcassets */; };
@@ -31,6 +33,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		052189FD1ACED9D100B5DDD3 /* BSISimplePDFViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSISimplePDFViewController.h; sourceTree = "<group>"; };
+		052189FE1ACED9D100B5DDD3 /* BSISimplePDFViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSISimplePDFViewController.m; sourceTree = "<group>"; };
+		052189FF1ACED9D100B5DDD3 /* BSISimplePDFViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSISimplePDFViewController.xib; sourceTree = "<group>"; };
+		05CBB7C61ACEFD6100A597DB /* Settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
 		05E845501AC5635100C21EF5 /* hackerBooks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hackerBooks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		05E845541AC5635100C21EF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		05E845551AC5635100C21EF5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -109,6 +115,7 @@
 			children = (
 				05E845541AC5635100C21EF5 /* Info.plist */,
 				05E845551AC5635100C21EF5 /* main.m */,
+				05CBB7C61ACEFD6100A597DB /* Settings.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -149,6 +156,9 @@
 				05E845811AC56D7A00C21EF5 /* BSIBookViewController.h */,
 				05E845821AC56D7A00C21EF5 /* BSIBookViewController.m */,
 				05E845831AC56D7A00C21EF5 /* BSIBookViewController.xib */,
+				052189FD1ACED9D100B5DDD3 /* BSISimplePDFViewController.h */,
+				052189FE1ACED9D100B5DDD3 /* BSISimplePDFViewController.m */,
+				052189FF1ACED9D100B5DDD3 /* BSISimplePDFViewController.xib */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -235,6 +245,7 @@
 			files = (
 				05E845871AC5727000C21EF5 /* c3po.jpg in Resources */,
 				05E8455E1AC5635100C21EF5 /* LaunchScreen.xib in Resources */,
+				05218A011ACED9D100B5DDD3 /* BSISimplePDFViewController.xib in Resources */,
 				05E8455B1AC5635100C21EF5 /* Images.xcassets in Resources */,
 				05E845851AC56D7A00C21EF5 /* BSIBookViewController.xib in Resources */,
 			);
@@ -259,6 +270,7 @@
 				05E845591AC5635100C21EF5 /* AppDelegate.m in Sources */,
 				05E845761AC5639300C21EF5 /* BSIBook.m in Sources */,
 				05E845791AC567F100C21EF5 /* BSILibrary.m in Sources */,
+				05218A001ACED9D100B5DDD3 /* BSISimplePDFViewController.m in Sources */,
 				05E845561AC5635100C21EF5 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -444,6 +456,7 @@
 				05E8456F1AC5635100C21EF5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		05E845701AC5635100C21EF5 /* Build configuration list for PBXNativeTarget "hackerBooksTests" */ = {
 			isa = XCConfigurationList;
@@ -452,6 +465,7 @@
 				05E845721AC5635100C21EF5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

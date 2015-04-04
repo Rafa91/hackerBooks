@@ -28,7 +28,7 @@
               pdfURL: (NSURL *) aPdfURL
                 tags: (NSArray *) tags
            titleBook: (NSString *) aTitleBook
-          isFavorite: (Boolean)isFavorite{
+          isFavorite: (BOOL)isFavorite{
     
     if (self = [super init]) {
         _author = author;

@@ -17,7 +17,7 @@
 @property (strong, nonatomic) NSURL *pdfURL;
 @property (strong, nonatomic) NSArray *tags;
 @property (strong, nonatomic) NSString *titleBook;
-@property (nonatomic) Boolean *isFavorite;
+@property (nonatomic) BOOL isFavorite;
 
 //tendremos que quitarlo
 -(id) initWithAuthor: (NSArray *) author
@@ -26,7 +26,7 @@
               pdfURL: (NSURL *) aPdfURL
                 tags: (NSArray *) tags
            titleBook: (NSString *) aTitleBook
-          isFavorite: (Boolean) isFavorite;
+          isFavorite: (BOOL) isFavorite;
 
 //el inicializador final
 -(id) initWithDictionary: (NSDictionary *)aDic;

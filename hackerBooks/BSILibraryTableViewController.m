@@ -7,8 +7,10 @@
 //
 
 #import "BSILibraryTableViewController.h"
+#import "BSIBookViewController.h"
 #import "BSILibrary.h"
 #import "BSIBook.h"
+#import "Settings.h"
 
 @interface BSILibraryTableViewController ()
 
@@ -30,6 +32,17 @@
 
 #pragma mark - livecycle
 
+-(void) viewWillAppear:(BOOL)animated{
+    
+    // Alta en notificación
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self
+           selector:@selector(notifyThatBookDidChange:)
+               name:BOOK_DID_CHANGE_NOTIFICATION_NAME
+             object:nil];
+    
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -39,23 +52,41 @@
     [super didReceiveMemoryWarning];
 }
 
+-(void) viewWillDisappear:(BOOL)animated{
+    
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
 #pragma mark - Table view data source
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    
+    return [[self.model tags] objectAtIndex:section];
+    
+}
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return 1;
+    return [[self.model tags] count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return [self.model.books count];
+    NSArray *tags = [self.model tags];
+    return [self.model booksCountForTag:[tags objectAtIndex:section]];
 }
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
     //averiguar de que modelo me esta hablando
-    BSIBook *aBook = [self.model.books objectAtIndex:indexPath.row];
+    NSArray *tags = [self.model tags];
+    
+    BSIBook *aBook = [self.model bookForTag:[tags objectAtIndex:indexPath.section] atIndex:indexPath.row];
     
     //crear una celda
     static NSString *cellId = @"BookCell";
@@ -75,6 +106,38 @@
 
 }
 
+#pragma mark - delegate
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    BSIBook *aBook = [self.model bookForTag:[[self.model tags] objectAtIndex:indexPath.section]
+                                    atIndex:indexPath.row];
+    
+    //aviso al delegate en caso de que lo entienda
+    if ([self.delegate respondsToSelector:@selector(libraryTableViewController:didSelectedBook:) ]) {
+        [self.delegate libraryTableViewController:self
+                                  didSelectedBook:aBook];
+    }
+    NSNotificationCenter *nc =[NSNotificationCenter defaultCenter];
+    NSDictionary *dict = @{BOOK_SELECTED_KEY : aBook};
+    NSNotification *n = [NSNotification notificationWithName:BOOK_DID_SELECTED_NOTIFICATION_NAME
+                                                      object:self
+                                                    userInfo:dict];
+    [nc postNotification:n];
+    
+    
+}
 
+#pragma mark - notifications
+//BOOK_DID_CHANGE_NOTIFICATION_NAME
+-(void)notifyThatBookDidChange:(NSNotification *)notification{
+    
+    BSIBook *bookNotified = [notification.userInfo objectForKey:BOOK_KEY];
+    if (bookNotified.isFavorite) {
+        [self.model addFavorite:bookNotified];
+    }else{
+        [self.model deleteFavorite:bookNotified];
+    }
+    [self.tableView reloadData];
+}
 
 @end

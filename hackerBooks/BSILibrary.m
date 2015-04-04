@@ -11,16 +11,21 @@
 
 @interface BSILibrary ()
 
+@property (strong, nonatomic) NSMutableDictionary *tagDictionary;
 
 @end
 
 
 @implementation BSILibrary
 
+#pragma mark - Init
 -(id) init{
     
     if (self = [super init]) {
-
+        
+        //inicializo tagDictionary
+        _tagDictionary = [[NSMutableDictionary alloc]init];
+        
         //intento de descarga del JSON
         //Creo la request
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://keepcodigtest.blob.core.windows.net/containerblobstest/books_readable.json"]];
@@ -51,6 +56,7 @@
                         [aux addObject:aBook];
                         self.books = [NSArray arrayWithArray:aux];
                     }
+                    [self updateTagsWithBook:aBook];
                 }
             }else{
                 NSLog(@"error al pasear JSON: %@", error.localizedDescription);
@@ -62,39 +68,117 @@
             
         }
         
-//        Libros dummies!!!!!
-//        //generar los libros dummies
-//        BSIBook *book1 = [[BSIBook alloc]initWithAuthor:@[@"Author1"]
-//                                               imageURL:nil
-//                                                 pdfURL:nil
-//                                                   tags:@[@"tag1"]
-//                                              titleBook:@"title1"];
-//        BSIBook *book2 = [[BSIBook alloc]initWithAuthor:@[@"Author2"]
-//                                               imageURL:nil
-//                                                 pdfURL:nil
-//                                                   tags:@[@"tag2"]
-//                                              titleBook:@"title2"];
-//        BSIBook *book3 = [[BSIBook alloc]initWithAuthor:@[@"Author3"]
-//                                               imageURL:nil
-//                                                 pdfURL:nil
-//                                                   tags:@[@"tag3"]
-//                                              titleBook:@"title3"];
-//        BSIBook *book4 = [[BSIBook alloc]initWithAuthor:@[@"Author4"]
-//                                               imageURL:nil
-//                                                 pdfURL:nil
-//                                                   tags:@[@"tag4"]
-//                                              titleBook:@"title4"];
-//        self.books = @[book1, book2, book3, book4];
-        
         
     }
     return self;
 }
 
+#pragma mark - Requirements
+-(NSUInteger) booksCount{
+    
+    return [self.books count];
+    
+}
+
+-(NSArray *) tags{
+    NSArray *tags = [[self.tagDictionary allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    if ([tags containsObject:@"Favorite"]) {
+        NSMutableArray *tagAux = [tags mutableCopy];
+        [tagAux removeObjectIdenticalTo:@"Favorite"];
+        tags = [NSArray arrayWithArray:tagAux];
+        tagAux = [NSMutableArray arrayWithObject:@"Favorite"];
+        [tagAux addObjectsFromArray:tags];
+        tags = [NSArray arrayWithArray:tagAux];
+    }
+    
+    //existen más formas de ordenar alfabeticamente
+    //Descriptors
+    //Blocks
+    //Selectors
+    //Enlace de la documentación: https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/Collections/Articles/Arrays.html#//apple_ref/doc/uid/20000132-SW5
+    return tags;
+    
+}
+
+-(NSUInteger) booksCountForTag:(NSString *) tag{
+    
+    return [[self booksForTag:tag] count];
+    
+}
+
+-(NSArray *) booksForTag:(NSString *) tag{
+    
+    return [self.tagDictionary objectForKey:tag];
+    
+}
+
+-(BSIBook *) bookForTag: (NSString *) tag atIndex:(NSUInteger) index{
+    
+    BSIBook *aBook;
+    if ([self booksCountForTag:tag]>index) {
+        aBook = [[self booksForTag:tag] objectAtIndex:index];
+    }else{
+        NSLog(@"error al introducir el puntero");
+    }
+    return aBook;
+    
+}
+
+
+#pragma mark - Utils
+-(void) updateTagsWithBook: (BSIBook *)aBook{
+    
+    for (NSString *tag in aBook.tags) {
+        NSArray *booksForTag = [self.tagDictionary objectForKey:tag];
+        if (!booksForTag) {
+            booksForTag = @[aBook];
+
+        }else{
+            NSMutableArray *aux=[booksForTag mutableCopy];
+            [aux addObject:aBook];
+            booksForTag=[NSArray arrayWithArray:aux];
+        }
+        [self.tagDictionary setObject:booksForTag
+                               forKey:tag];
+    }
+    
+}
 
 -(BSIBook *) bookAtIndex:(NSUInteger) index{
     
     return [self.books objectAtIndex:index];
+    
+}
+
+//añade un nuevo libro al tag Favoritos
+-(void)addFavorite:(BSIBook *)aBook{
+    
+    NSArray *booksForTag = [self.tagDictionary objectForKey:@"Favorite"];
+    if (!booksForTag) {
+        booksForTag = @[aBook];
+        
+    }else{
+        NSMutableArray *aux=[booksForTag mutableCopy];
+        [aux addObject:aBook];
+        booksForTag=[NSArray arrayWithArray:aux];
+    }
+    [self.tagDictionary setObject:booksForTag
+                           forKey:@"Favorite"];
+    
+}
+
+//elimina un libro del tag Favoritos
+-(void)deleteFavorite:(BSIBook *)aBook{
+    
+    NSArray *booksForTag = [self.tagDictionary objectForKey:@"Favorite"];
+    if (booksForTag) {
+        NSMutableArray *bookListAux=[booksForTag mutableCopy];
+        [bookListAux removeObjectIdenticalTo:aBook];
+        booksForTag = [NSArray arrayWithArray:bookListAux];
+    }else{
+        booksForTag=@[];
+    }
+    [self.tagDictionary setValue:booksForTag forKey:@"Favorite"];
     
 }
 

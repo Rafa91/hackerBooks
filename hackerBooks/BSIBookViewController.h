@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 @class BSIBook;
+#import "BSILibraryTableViewController.h"
 
-@interface BSIBookViewController : UIViewController
+
+
+@interface BSIBookViewController : UIViewController<UISplitViewControllerDelegate, BSILibraryTableViewControllerDelegate>
 
 @property (strong, nonatomic) BSIBook *model;
 @property (weak, nonatomic) IBOutlet UILabel *labelTags;
@@ -21,6 +24,7 @@
 
 
 - (IBAction)readButton:(id)sender;
+- (IBAction)isFavorite:(id)sender;
 
 
 @end

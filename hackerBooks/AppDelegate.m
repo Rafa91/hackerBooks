@@ -25,12 +25,16 @@
     
     self.window.backgroundColor = [UIColor whiteColor];
     BSILibrary *model = [[BSILibrary alloc]init];
-    NSLog(@"%lu", (unsigned long)[model.books count]);
     BSILibraryTableViewController *lVC = [[BSILibraryTableViewController alloc] initWithModel:model
-                                                                                        style:UITableViewStyleGrouped];
-    //BSIBookViewController *bVC = [[BSIBookViewController alloc]initWithModel:[model.books objectAtIndex:0]];
-    UINavigationController *navVC = [[UINavigationController alloc]initWithRootViewController:lVC];
-    self.window.rootViewController = navVC;
+                                                                                        style:UITableViewStylePlain];
+    BSIBookViewController *bVC = [[BSIBookViewController alloc]initWithModel:[model.books objectAtIndex:0]];
+    UINavigationController *navlVC = [[UINavigationController alloc]initWithRootViewController:lVC];
+    UINavigationController *navbVC = [[UINavigationController alloc] initWithRootViewController:bVC];
+    UISplitViewController *split = [[UISplitViewController alloc] init];
+    split.viewControllers = @[navlVC, navbVC];
+    split.delegate = bVC;
+    lVC.delegate = bVC;
+    self.window.rootViewController =split;
     [self.window makeKeyAndVisible];
     return YES;
 }

@@ -8,6 +8,8 @@
 
 #import "BSIBookViewController.h"
 #import "BSIBook.h"
+#import "BSISimplePDFViewController.h"
+#import "Settings.h"
 
 @interface BSIBookViewController ()
 
@@ -30,8 +32,9 @@
 
 #pragma mark - view Lifecycle
 -(void) viewWillAppear:(BOOL)animated{
-    
+    [super viewWillAppear:animated];
     [self updateView];
+    
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
     
@@ -45,8 +48,23 @@
 #pragma mark - Actions
 - (IBAction)readButton:(id)sender {
     
-    NSLog(@"cargamos la vista del pdf");
+    [self.navigationController pushViewController:[[BSISimplePDFViewController alloc] initWithModel:self.model] animated:YES];
     
+}
+
+- (IBAction)isFavorite:(id)sender {
+    NSLog(@"cambiamos el estado de favorito");
+    if (self.model.isFavorite) {
+        self.model.isFavorite = NO;
+    }else{
+        self.model.isFavorite = YES;
+    }
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    NSDictionary *dic = @{BOOK_KEY : self.model};
+    NSNotification *n = [NSNotification notificationWithName:BOOK_DID_CHANGE_NOTIFICATION_NAME
+                                                      object:self
+                                                    userInfo:dic];
+    [nc postNotification:n];
 }
 
 #pragma mark - Utils
@@ -57,6 +75,33 @@
     self.labelTitle.text = [self.model titleBook];
     self.labelTags.text = [self.model tagDescription];
     self.labelAuthor.text = [self.model authorDescription];
+    self.frontPage.image = [self.model frontPage];
+    
+}
+
+#pragma mark - UISplitViewControllerDelegate
+-(void) splitViewController:(UISplitViewController *)svc willChangeToDisplayMode:(UISplitViewControllerDisplayMode)displayMode{
+    
+    // Averiguar si la tabla se ve o no
+    if (displayMode == UISplitViewControllerDisplayModePrimaryHidden) {
+        
+        // La tabla está oculta y cuelga del botón
+        // Ponemos ese botón en mi barra de navegación
+        self.navigationItem.leftBarButtonItem = svc.displayModeButtonItem;
+    }else{
+        // Se muestra la tabla: oculto el botón de la
+        // barra de navegación
+        self.navigationItem.leftBarButtonItem = nil;
+    }
+    
+    
+}
+
+#pragma mark - BSILibraryTableViewControllerDelegate
+-(void) libraryTableViewController:(BSILibraryTableViewController *)libVC didSelectedBook:(BSIBook *)aBook{
+    
+    self.model=aBook;
+    [self updateView];
     
 }
 

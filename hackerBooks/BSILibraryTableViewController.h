@@ -8,10 +8,21 @@
 
 #import <UIKit/UIKit.h>
 @class BSILibrary;
+@class BSILibraryTableViewController;
+@class BSIBook;
+
+@protocol BSILibraryTableViewControllerDelegate <NSObject>
+
+@optional
+-(void) libraryTableViewController:(BSILibraryTableViewController *) libVC
+                   didSelectedBook:(BSIBook *) aBook;
+
+@end
 
 @interface BSILibraryTableViewController : UITableViewController
 
 @property (strong, nonatomic) BSILibrary *model;
+@property (weak, nonatomic) id<BSILibraryTableViewControllerDelegate> delegate;
 
 -(id) initWithModel: (BSILibrary *) aModel
               style: (UITableViewStyle *) aStyle;
