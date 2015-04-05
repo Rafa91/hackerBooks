@@ -74,9 +74,7 @@
 
 #pragma mark - UIWebViewDelegate
 -(void) webViewDidFinishLoad:(UIWebView *)webView{
-    
 
-    
     self.canLoad = NO;
     
 }
@@ -89,12 +87,6 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
     
 }
 
--(void) webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
-    
-    // ocultar activityView
-    // hacer un NSLog
-    
-}
 
 #pragma mark - Notifications
 //BOOK_DID_SELECTED_NOTIFICATION_NAME

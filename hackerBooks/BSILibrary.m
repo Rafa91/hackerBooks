@@ -24,11 +24,10 @@
     if (self = [super init]) {
         
         //inicializo tagDictionary
+        //se que tener un objeto mutable es una aberración pero con Core Data no me veo obligado a trabajar con ellos
         _tagDictionary = [[NSMutableDictionary alloc]init];
 
-
         NSError *error;
-        
         //Creo un array con los objetos JSON
         NSArray *JSONObjects = [NSJSONSerialization JSONObjectWithData:data
                                                                options:kNilOptions
@@ -51,7 +50,7 @@
             NSLog(@"error al pasear JSON: %@", error.localizedDescription);
         }
         
-        
+        //Compruebo los Favoritos
         NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
         NSLog(@"%@", [ud objectForKey:@"Favorite"]);
         if ([ud objectForKey:@"Favorite"]!=nil) {
@@ -70,6 +69,11 @@
 }
 
 -(NSArray *) tags{
+    //existen más formas de ordenar alfabeticamente
+    //Descriptors
+    //Blocks
+    //Selectors
+    //Enlace de la documentación: https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/Collections/Articles/Arrays.html#//apple_ref/doc/uid/20000132-SW5
     NSArray *tags = [[self.tagDictionary allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     if ([tags containsObject:@"Favorite"]) {
         NSMutableArray *tagAux = [tags mutableCopy];
@@ -79,12 +83,6 @@
         [tagAux addObjectsFromArray:tags];
         tags = [NSArray arrayWithArray:tagAux];
     }
-    
-    //existen más formas de ordenar alfabeticamente
-    //Descriptors
-    //Blocks
-    //Selectors
-    //Enlace de la documentación: https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/Collections/Articles/Arrays.html#//apple_ref/doc/uid/20000132-SW5
     return tags;
     
 }
@@ -153,7 +151,6 @@
     }
     [self.tagDictionary setObject:booksForTag
                            forKey:@"Favorite"];
-    [self saveFavorites];
 
     
 }
@@ -170,7 +167,6 @@
         booksForTag=@[];
     }
     [self.tagDictionary setValue:booksForTag forKey:@"Favorite"];
-    [self saveFavorites];
     
 }
 
@@ -198,7 +194,6 @@
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     [ud setObject:favorites
            forKey:@"Favorite"];
-    NSLog(@"%@",[ud objectForKey:@"Favorite"]);
     
     
 }

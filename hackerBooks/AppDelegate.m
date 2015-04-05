@@ -22,8 +22,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
     
+    //Generamos el modelo
     BSILibrary *model = [self configureFirstAppear];
 
     // Detectamos el tipo de pantalla
@@ -97,7 +97,6 @@
     //Comprobamos si tenemos guardado el JSON
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     if (![ud objectForKey:DOWNLOAD_FINISH]) {
-        NSLog(@"compruebo que no hay nada en userDefaults");
         //Creo la request
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://keepcodigtest.blob.core.windows.net/containerblobstest/books_readable.json"]];
         //Creo la response y el error para la conexión
@@ -110,9 +109,6 @@
         
         //compruebo si data es nil para ver si hay error
         if (someData != nil) {
-            
-
-            NSLog(@"he descargado algo");
             //lo guardo
             NSFileManager *manager = [NSFileManager defaultManager];
             NSArray *urls = [manager URLsForDirectory:NSDocumentDirectory
@@ -122,12 +118,9 @@
             BOOL rc = [someData writeToURL:url
                                 atomically:YES];
             if (rc) {
-                NSLog(@"he guardado el nsdata");
                 [ud setObject:@YES
                        forKey:DOWNLOAD_FINISH];
                 [ud synchronize];
-                NSLog(@"%@",[ud objectForKey:DOWNLOAD_FINISH]);
-                
             }
             //genero el modelo
             return [[BSILibrary alloc] initWithData:someData];
@@ -139,7 +132,7 @@
             
         }
     }else{
-        
+        //si lo tengo guardado, busco en la carpeta Documents
         NSFileManager *manager = [NSFileManager defaultManager];
         NSArray *urls = [manager URLsForDirectory:NSDocumentDirectory
                                         inDomains:NSUserDomainMask];
