@@ -53,3 +53,7 @@ escasa.
 AGTSimplePDFViewController debe de actualizarse. ¿Cómo lo harías?**
 
 Lo he implementado mediante notificaciones ya que es la forma más eficiente.
+
+
+P.D. Enseñadnos autolayout porque me he vuelto loco con la interfaz y al final la
+he tenido que dejar mal. La única que medio se ve bien es la interfaz del iphone.
