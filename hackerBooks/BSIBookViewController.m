@@ -25,6 +25,7 @@
         _model = model;
         self.title = [model titleBook];
     }
+    
     return self;
     
 }
@@ -36,6 +37,8 @@
     [self updateView];
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
+    // Si estoy dentro de un SplitVC me pongo el botón
+    self.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
     
     
 }
@@ -53,18 +56,13 @@
 }
 
 - (IBAction)isFavorite:(id)sender {
-    NSLog(@"cambiamos el estado de favorito");
+
     if (self.model.isFavorite) {
-        self.model.isFavorite = NO;
+        [self.model setIsFavorite:NO];
     }else{
-        self.model.isFavorite = YES;
+        [self.model setIsFavorite:YES];
     }
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    NSDictionary *dic = @{BOOK_KEY : self.model};
-    NSNotification *n = [NSNotification notificationWithName:BOOK_DID_CHANGE_NOTIFICATION_NAME
-                                                      object:self
-                                                    userInfo:dic];
-    [nc postNotification:n];
+
 }
 
 #pragma mark - Utils
@@ -78,6 +76,8 @@
     self.frontPage.image = [self.model frontPage];
     
 }
+
+
 
 #pragma mark - UISplitViewControllerDelegate
 -(void) splitViewController:(UISplitViewController *)svc willChangeToDisplayMode:(UISplitViewControllerDisplayMode)displayMode{

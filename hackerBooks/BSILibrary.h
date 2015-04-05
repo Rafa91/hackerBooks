@@ -14,6 +14,8 @@
 
 @property (strong,nonatomic) NSArray *books;
 
+-(id) initWithData:(NSData *)data;
+
 -(BSIBook *) bookAtIndex:(NSUInteger) index;
 
 //Número total de libros
@@ -37,5 +39,6 @@
 
 -(void)addFavorite:(BSIBook *)aBook;
 -(void)deleteFavorite:(BSIBook *)aBook;
+-(void) saveFavorites;
 
 @end

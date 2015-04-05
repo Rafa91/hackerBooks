@@ -7,6 +7,7 @@
 //
 
 #import "BSIBook.h"
+#import "Settings.h"
 
 
 @implementation BSIBook
@@ -31,11 +32,11 @@
           isFavorite: (BOOL)isFavorite{
     
     if (self = [super init]) {
+        _titleBook = aTitleBook;
         _author = author;
         _imageURL = anImageURL;
         _pdfURL = aPdfURL;
         _tags = tags;
-        _titleBook = aTitleBook;
         _frontPage = frontPage;
         _isFavorite = isFavorite;
     }
@@ -46,9 +47,41 @@
 
 -(id) initWithDictionary: (NSDictionary *)aDic{
     
+    //objetos para pasarle al init
+    UIImage *aImage;
+    NSURL *imageURL=[NSURL URLWithString:[aDic objectForKey:@"image_url"]];
+    
+    //Compruebo si hay algún fichero con ese nombre para la imagen
+    NSFileManager *manager = [NSFileManager defaultManager];
+    NSArray *urls = [manager URLsForDirectory:NSDocumentDirectory
+                                    inDomains:NSUserDomainMask];
+    NSURL *url = [urls lastObject];
+    url = [url URLByAppendingPathComponent:[NSString stringWithFormat:@"%@.txt",[aDic objectForKey:@"title"]]];
+    NSData *someData = [NSData dataWithContentsOfURL:url];
+    
+    //si lo hay la paso a imagen
+    if (someData) {
+        aImage = [UIImage imageWithData:someData];
+    }else{
+        //si no la hay me la descargo
+        NSError *error;
+        someData =[NSData dataWithContentsOfURL:imageURL
+                                        options:NSDataReadingMappedIfSafe
+                                          error:&error];
+        //la guardo en disco para evitar volverla a descargar
+        if (someData) {
+            [someData writeToURL:url
+                      atomically:YES];
+            aImage = [UIImage imageWithData:someData];
+        }else{
+            NSLog(@"error en la descarga de imagen: %@", error.localizedDescription);
+        }
+        
+    }
+    
     return [self initWithAuthor: [self extractAuthorFromJSONArray:[aDic objectForKey:@"authors"]]
-                      frontPage: [self imageOfURL:[NSURL URLWithString:[aDic objectForKey:@"image_url"]]]
-                       imageURL: [NSURL URLWithString:[aDic objectForKey:@"image_url"]]
+                      frontPage: aImage
+                       imageURL: imageURL
                          pdfURL: [NSURL URLWithString:[aDic objectForKey:@"pdf_url"]]
                            tags: [self extractTagFromJSONArray:[aDic objectForKey:@"tags"]]
                       titleBook: [aDic objectForKey:@"title"]
@@ -97,18 +130,15 @@
     return tags;
 }
 
--(UIImage *) imageOfURL:(NSURL *) aURL{
+-(void) setIsFavorite:(BOOL) estado{
     
-    NSError *error;
-    UIImage *aImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:aURL
-                                                                   options:NSDataReadingMappedIfSafe
-                                                                     error:&error]];
-    if (aImage) {
-        return aImage;
-    }else{
-        NSLog(@"error en la descarga de imagen: %@", error.localizedDescription);
-        return nil;
-    }
+    _isFavorite=estado;
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    NSDictionary *dic = @{BOOK_KEY : self};
+    NSNotification *n = [NSNotification notificationWithName:BOOK_DID_CHANGE_NOTIFICATION_NAME
+                                                      object:self
+                                                    userInfo:dic];
+    [nc postNotification:n];
     
 }
 

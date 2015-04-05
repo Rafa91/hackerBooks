@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		05218A001ACED9D100B5DDD3 /* BSISimplePDFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 052189FE1ACED9D100B5DDD3 /* BSISimplePDFViewController.m */; };
 		05218A011ACED9D100B5DDD3 /* BSISimplePDFViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 052189FF1ACED9D100B5DDD3 /* BSISimplePDFViewController.xib */; };
+		0539E4A31AD1B45B002C79EA /* BSIBookViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0539E4A21AD1B45B002C79EA /* BSIBookViewController~iphone.xib */; };
 		05E845561AC5635100C21EF5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E845551AC5635100C21EF5 /* main.m */; };
 		05E845591AC5635100C21EF5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E845581AC5635100C21EF5 /* AppDelegate.m */; };
 		05E8455B1AC5635100C21EF5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05E8455A1AC5635100C21EF5 /* Images.xcassets */; };
@@ -19,7 +20,6 @@
 		05E8457D1AC56CD000C21EF5 /* BSILibraryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E8457C1AC56CD000C21EF5 /* BSILibraryTableViewController.m */; };
 		05E845841AC56D7A00C21EF5 /* BSIBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E845821AC56D7A00C21EF5 /* BSIBookViewController.m */; };
 		05E845851AC56D7A00C21EF5 /* BSIBookViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05E845831AC56D7A00C21EF5 /* BSIBookViewController.xib */; };
-		05E845871AC5727000C21EF5 /* c3po.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05E845861AC5727000C21EF5 /* c3po.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +36,7 @@
 		052189FD1ACED9D100B5DDD3 /* BSISimplePDFViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSISimplePDFViewController.h; sourceTree = "<group>"; };
 		052189FE1ACED9D100B5DDD3 /* BSISimplePDFViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSISimplePDFViewController.m; sourceTree = "<group>"; };
 		052189FF1ACED9D100B5DDD3 /* BSISimplePDFViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSISimplePDFViewController.xib; sourceTree = "<group>"; };
+		0539E4A21AD1B45B002C79EA /* BSIBookViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "BSIBookViewController~iphone.xib"; sourceTree = "<group>"; };
 		05CBB7C61ACEFD6100A597DB /* Settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
 		05E845501AC5635100C21EF5 /* hackerBooks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hackerBooks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		05E845541AC5635100C21EF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -56,7 +57,6 @@
 		05E845811AC56D7A00C21EF5 /* BSIBookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSIBookViewController.h; sourceTree = "<group>"; };
 		05E845821AC56D7A00C21EF5 /* BSIBookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSIBookViewController.m; sourceTree = "<group>"; };
 		05E845831AC56D7A00C21EF5 /* BSIBookViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSIBookViewController.xib; sourceTree = "<group>"; };
-		05E845861AC5727000C21EF5 /* c3po.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = c3po.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +98,6 @@
 		05E845521AC5635100C21EF5 /* hackerBooks */ = {
 			isa = PBXGroup;
 			children = (
-				05E845861AC5727000C21EF5 /* c3po.jpg */,
 				05E8457A1AC56C4D00C21EF5 /* Controllers */,
 				05E845731AC5637000C21EF5 /* Models */,
 				05E845571AC5635100C21EF5 /* AppDelegate.h */,
@@ -159,6 +158,7 @@
 				052189FD1ACED9D100B5DDD3 /* BSISimplePDFViewController.h */,
 				052189FE1ACED9D100B5DDD3 /* BSISimplePDFViewController.m */,
 				052189FF1ACED9D100B5DDD3 /* BSISimplePDFViewController.xib */,
+				0539E4A21AD1B45B002C79EA /* BSIBookViewController~iphone.xib */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -212,6 +212,7 @@
 				TargetAttributes = {
 					05E8454F1AC5635100C21EF5 = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = VGW29G74QP;
 					};
 					05E845621AC5635100C21EF5 = {
 						CreatedOnToolsVersion = 6.2;
@@ -243,8 +244,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				05E845871AC5727000C21EF5 /* c3po.jpg in Resources */,
 				05E8455E1AC5635100C21EF5 /* LaunchScreen.xib in Resources */,
+				0539E4A31AD1B45B002C79EA /* BSIBookViewController~iphone.xib in Resources */,
 				05218A011ACED9D100B5DDD3 /* BSISimplePDFViewController.xib in Resources */,
 				05E8455B1AC5635100C21EF5 /* Images.xcassets in Resources */,
 				05E845851AC56D7A00C21EF5 /* BSIBookViewController.xib in Resources */,
@@ -387,9 +388,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = hackerBooks/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -398,9 +402,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = hackerBooks/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

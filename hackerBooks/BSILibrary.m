@@ -19,55 +19,44 @@
 @implementation BSILibrary
 
 #pragma mark - Init
--(id) init{
+-(id) initWithData:(NSData *)data{
     
     if (self = [super init]) {
         
         //inicializo tagDictionary
         _tagDictionary = [[NSMutableDictionary alloc]init];
-        
-        //intento de descarga del JSON
-        //Creo la request
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://keepcodigtest.blob.core.windows.net/containerblobstest/books_readable.json"]];
-        //Creo la response y el error para la conexión
-        NSURLResponse *response= [[NSURLResponse alloc]init];
+
+
         NSError *error;
-        //Procedo a realizar la conexión
-        NSData *data = [NSURLConnection sendSynchronousRequest:request
-                                             returningResponse:&response
-                                                         error:&error];
         
-        //compruebo si data es nil para ver si hay error
-        if (data != nil) {
-            
-            //Creo un array con los objetos JSON
-            NSArray *JSONObjects = [NSJSONSerialization JSONObjectWithData:data
-                                                                   options:kNilOptions
-                                                                     error:&error];
-            
-            //vuelvo a comporbar el vajor de JSONObjects para ver si hay error
-            if (JSONObjects != nil) {
-                for (NSDictionary *dic in JSONObjects) {
-                    BSIBook *aBook = [[BSIBook alloc]initWithDictionary:dic];
-                    if (!self.books) {
-                        self.books = [NSArray arrayWithObject:aBook];
-                    }else{
-                        NSMutableArray *aux = [self.books mutableCopy];
-                        [aux addObject:aBook];
-                        self.books = [NSArray arrayWithArray:aux];
-                    }
-                    [self updateTagsWithBook:aBook];
+        //Creo un array con los objetos JSON
+        NSArray *JSONObjects = [NSJSONSerialization JSONObjectWithData:data
+                                                               options:kNilOptions
+                                                                 error:&error];
+        
+        //vuelvo a comporbar el vajor de JSONObjects para ver si hay error
+        if (JSONObjects != nil) {
+            for (NSDictionary *dic in JSONObjects) {
+                BSIBook *aBook = [[BSIBook alloc]initWithDictionary:dic];
+                if (!self.books) {
+                    self.books = [NSArray arrayWithObject:aBook];
+                }else{
+                    NSMutableArray *aux = [self.books mutableCopy];
+                    [aux addObject:aBook];
+                    self.books = [NSArray arrayWithArray:aux];
                 }
-            }else{
-                NSLog(@"error al pasear JSON: %@", error.localizedDescription);
+                [self updateTagsWithBook:aBook];
             }
-            
         }else{
-            
-            NSLog(@"error al descargar los datos del servidor: %@", error.localizedDescription);
-            
+            NSLog(@"error al pasear JSON: %@", error.localizedDescription);
         }
         
+        
+        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+        NSLog(@"%@", [ud objectForKey:@"Favorite"]);
+        if ([ud objectForKey:@"Favorite"]!=nil) {
+            [self addFavorites:[ud objectForKey:@"Favorite"]];
+        }
         
     }
     return self;
@@ -164,6 +153,8 @@
     }
     [self.tagDictionary setObject:booksForTag
                            forKey:@"Favorite"];
+    [self saveFavorites];
+
     
 }
 
@@ -179,7 +170,38 @@
         booksForTag=@[];
     }
     [self.tagDictionary setValue:booksForTag forKey:@"Favorite"];
+    [self saveFavorites];
     
 }
+
+-(void) addFavorites:(NSArray *)someTitles{
+    
+    for (BSIBook *aBook in self.books) {
+        for (NSString *title in someTitles) {
+            if ([aBook.titleBook isEqualToString:title]) {
+                [self addFavorite:aBook];
+            }
+        }
+    }
+    
+}
+
+//guarda los favoritos en disco
+-(void) saveFavorites{
+    
+    NSMutableArray *favoritesMutable= [NSMutableArray arrayWithObject:@""];
+    for (BSIBook *aBook in [self.tagDictionary objectForKey:@"Favorite"]) {
+        [favoritesMutable addObject:aBook.titleBook];
+    }
+    [favoritesMutable removeObjectIdenticalTo:@""];
+    NSArray *favorites = [NSArray arrayWithArray:favoritesMutable];
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    [ud setObject:favorites
+           forKey:@"Favorite"];
+    NSLog(@"%@",[ud objectForKey:@"Favorite"]);
+    
+    
+}
+
 
 @end

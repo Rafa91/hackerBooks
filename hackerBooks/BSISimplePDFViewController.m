@@ -111,11 +111,34 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
 -(void) syncWithModel{
     
     self.canLoad = YES;
-    NSError *error;
     
-    [self.webPDF loadData:[NSData dataWithContentsOfURL:self.model.pdfURL
-                                                options:NSDataReadingMappedIfSafe
-                                                  error:&error]
+    //Compruebo si hay algún fichero con ese nombre para el pdf
+    NSFileManager *manager = [NSFileManager defaultManager];
+    NSArray *urls = [manager URLsForDirectory:NSDocumentDirectory
+                                    inDomains:NSUserDomainMask];
+    NSURL *url = [urls lastObject];
+    url = [url URLByAppendingPathComponent:[NSString stringWithFormat:@"%@PDF.txt",self.model.titleBook]];
+    NSData *someData = [NSData dataWithContentsOfURL:url];
+    
+    if (!someData) {
+    
+        NSError *error;
+        someData = [NSData dataWithContentsOfURL:self.model.pdfURL
+                                         options:NSDataReadingMappedIfSafe
+                                           error:&error];
+        //lo guardo en disco para evitar volverlo a descargar
+        if (someData) {
+            [someData writeToURL:url
+                      atomically:YES];
+            
+
+        }else{
+            NSLog(@"error en la descarga de imagen: %@", error.localizedDescription);
+        }
+        
+        
+    }
+    [self.webPDF loadData:someData
                  MIMEType:@"application/pdf"
          textEncodingName:@"UTF-8"
                   baseURL:[NSURL URLWithString:@"https://"]];

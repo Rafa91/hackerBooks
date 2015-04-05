@@ -24,6 +24,7 @@
     
     if (self = [super initWithStyle:aStyle]) {
         _model = aModel;
+        self.title = @"Library";
     }
     
     return self;
@@ -52,9 +53,11 @@
     [super didReceiveMemoryWarning];
 }
 
+
 -(void) viewWillDisappear:(BOOL)animated{
     
     [super viewWillDisappear:animated];
+    [self.model saveFavorites];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }

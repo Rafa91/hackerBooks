@@ -11,3 +11,6 @@
 #define BOOK_KEY @"bookKey"
 #define BOOK_DID_SELECTED_NOTIFICATION_NAME @"bookDidSelectedNotificationName"
 #define BOOK_SELECTED_KEY @"bookSelectedKey"
+
+
+#define DOWNLOAD_FINISH @"downloadFinish"
